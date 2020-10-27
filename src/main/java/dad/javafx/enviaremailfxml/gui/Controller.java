@@ -7,12 +7,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 
 public class Controller implements Initializable {
 	
 	@FXML
-	private GridPane view;
+	private BorderPane view;
 	
 	public Controller() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/View.fxml"));
@@ -26,11 +26,11 @@ public class Controller implements Initializable {
 		
 	}
 
-	public GridPane getView() {
+	public BorderPane getView() {
 		return view;
 	}
 
-	public void setView(GridPane view) {
+	public void setView(BorderPane view) {
 		this.view = view;
 	}
 
