@@ -17,9 +17,9 @@
    <right>
       <VBox alignment="TOP_RIGHT" prefHeight="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btEnviar" defaultButton="true" mnemonicParsing="false" text="Enviar" />
-            <Button fx:id="btVaciar" mnemonicParsing="false" text="Vaciar" />
-            <Button fx:id="btCerrar" mnemonicParsing="false" text="Cerrar" />
+            <Button fx:id="btEnviar" defaultButton="true" mnemonicParsing="false" onAction="#onActionEnviar" text="Enviar" />
+            <Button fx:id="btVaciar" mnemonicParsing="false" onAction="#onActionVaciar" text="Vaciar" />
+            <Button fx:id="btCerrar" mnemonicParsing="false" onAction="#onActionCerrar" text="Cerrar" />
          </children>
          <padding>
             <Insets bottom="5.0" right="5.0" top="5.0" />
