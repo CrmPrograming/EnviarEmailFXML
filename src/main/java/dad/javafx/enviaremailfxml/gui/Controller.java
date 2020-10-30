@@ -4,17 +4,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.util.converter.NumberStringConverter;
 
@@ -81,7 +88,34 @@ public class Controller implements Initializable {
 	
 	@FXML
 	public void onActionEnviar(ActionEvent e) {
+		Email email = new SimpleEmail();
 		
+		try {
+			email.setHostName(model.getServidor());
+			email.setSmtpPort(model.getPuerto());
+			email.setAuthenticator(new DefaultAuthenticator(model.getDestinatario(), model.getPasswd()));
+			email.setSSLOnConnect(model.isSsl());		
+			email.setFrom(model.getRemitente());
+			email.setSubject(model.getAsunto());
+			email.setMsg(model.getMensaje());
+			email.addTo(model.getDestinatario());
+			
+			email.send();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Mensaje enviado");
+			alert.setHeaderText("Mensaje enviado con éxito a '" + model.getDestinatario() + "'");			
+
+			alert.showAndWait();
+		} catch (EmailException e1) {			
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("No se pudo enviar el email.");
+			alert.setContentText(e1.getLocalizedMessage());
+
+			alert.showAndWait();
+			
+			e1.printStackTrace();
+		}
 	}
 	
 	@FXML
