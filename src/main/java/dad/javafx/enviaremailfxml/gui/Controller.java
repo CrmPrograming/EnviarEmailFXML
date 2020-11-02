@@ -93,14 +93,14 @@ public class Controller implements Initializable {
 		try {
 			email.setHostName(model.getServidor());
 			email.setSmtpPort(model.getPuerto());
-			email.setAuthenticator(new DefaultAuthenticator(model.getDestinatario(), model.getPasswd()));
+			email.setAuthenticator(new DefaultAuthenticator(model.getRemitente(), model.getPasswd()));
 			email.setSSLOnConnect(model.isSsl());		
 			email.setFrom(model.getRemitente());
 			email.setSubject(model.getAsunto());
 			email.setMsg(model.getMensaje());
-			email.addTo(model.getDestinatario());
-			
+			email.addTo(model.getDestinatario());			
 			email.send();
+			
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Mensaje enviado");
 			alert.setHeaderText("Mensaje enviado con éxito a '" + model.getDestinatario() + "'");			
